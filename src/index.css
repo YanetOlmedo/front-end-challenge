@@ -26,3 +26,7 @@ html {
   height: 4px;
   background-color: #0891b2; 
 }
+
+.custom-calendar {
+  width: 200px;
+}

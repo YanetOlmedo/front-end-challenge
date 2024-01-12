@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
-
+import { useBooking } from "../context/BookingContext";
 
 const DetailsBook = ({ visible, onHide, booking }) => {
-    if (!booking) return null;
+    const { deleteBookingById } = useBooking();
 
+    if (!booking) return null;
 
     const bookingDetails = [
         { label: "Origin", value: booking.origin },
@@ -15,6 +16,10 @@ const DetailsBook = ({ visible, onHide, booking }) => {
         { label: "Time", value: booking.time },
     ];
 
+    const handleCancelBook = () => {
+        deleteBookingById(booking.id);
+        onHide();
+    };
 
     return (
         <div>
@@ -31,8 +36,10 @@ const DetailsBook = ({ visible, onHide, booking }) => {
                     </div>
                 ))}
                 <div className="flex justify-end">
-                    <Button className="bg-red-500 w-24 h-10 text-white text-sm flex items-center justify-center">
-                        Cancel Book
+                    <Button
+                        onClick={handleCancelBook}
+                        className="bg-red-500 w-32 h-10 text-white text-sm flex items-center justify-center">
+                        Cancel Booking
                     </Button>
                 </div>
             </Dialog>
@@ -44,6 +51,7 @@ DetailsBook.propTypes = {
     visible: PropTypes.bool.isRequired,
     onHide: PropTypes.func.isRequired,
     booking: PropTypes.shape({
+        id: PropTypes.string.isRequired,
         origin: PropTypes.string,
         destination: PropTypes.string,
         passengers: PropTypes.number,
