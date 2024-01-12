@@ -7,10 +7,12 @@ import Card from './ui/card';
 import { useBooking } from '../context/BookingContext';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { useNavigate } from 'react-router-dom';
 
 
 const FormBooking = () => {
     const { addBooking, destinations, travelTimes } = useBooking();
+    const navigate = useNavigate();
 
     const initialOrigin = '';
     const initialDestination = '';
@@ -65,6 +67,7 @@ const FormBooking = () => {
 
         addBooking(newBooking);
         handleReset();
+        navigate('/mybookings');
     };
 
     const handleReset = () => {
