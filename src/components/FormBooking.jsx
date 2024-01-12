@@ -5,6 +5,8 @@ import { Calendar } from 'primereact/calendar';
 import CustomTabMenu from './CustomTabMenu';
 import Card from './ui/card';
 import { useBooking } from '../context/BookingContext';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 
 const FormBooking = () => {
@@ -21,12 +23,25 @@ const FormBooking = () => {
     const [passengers, setPassengers] = useState(initialPassengers);
     const [date, setDate] = useState(initialDate);
     const [time, setTime] = useState(initialTime);
+    const MySwal = withReactContent(Swal);
 
     const currentDate = new Date();
     currentDate.setDate(currentDate.getDate() + 1);
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (!origin || !destination || !passengers || !date || !time) {
+            MySwal.fire({
+                title: 'Error',
+                text: 'Please fill all fields',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                width: '30rem',
+                confirmButtonColor: '#0891b2',
+            });
+            return;
+        }
+
 
         const formatTime = (time) => {
             const hours = time.getHours().toString().padStart(2, '0');
@@ -72,7 +87,6 @@ const FormBooking = () => {
                                 placeholder="Select Origin"
                                 className="w-full"
                                 filter
-                                required
                             />
                         </div>
                         <div className="space-y-2">
@@ -85,7 +99,6 @@ const FormBooking = () => {
                                 placeholder="Select Destination"
                                 className="w-full"
                                 filter={true}
-                                required
                             />
                         </div>
                         <div className="space-y-2">
@@ -100,7 +113,6 @@ const FormBooking = () => {
                                 placeholder="Select Number of Passengers"
                                 className="w-full"
                                 filter={true}
-                                required
                             />
                         </div>
                         <div className="space-y-2">
@@ -113,7 +125,6 @@ const FormBooking = () => {
                                 showIcon
                                 className="w-full border-b border-gray-300 custom-calendar"
                                 minDate={currentDate}
-                                required
                             />
                         </div>
                         <div className="space-y-2">
@@ -126,7 +137,6 @@ const FormBooking = () => {
                                 timeOnly
                                 hourFormat="24"
                                 className="w-full border-b border-gray-300 custom-calendar"
-                                required
                             />
                         </div>
                         <div className="flex justify-around space-x-4 pt-4">
