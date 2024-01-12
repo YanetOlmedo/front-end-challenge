@@ -1,14 +1,14 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { Calendar } from 'primereact/calendar';
 import CustomTabMenu from './CustomTabMenu';
 import Card from './ui/card';
 import { useBooking } from '../context/BookingContext';
-import { Toast } from 'primereact/toast';
+
 
 const FormBooking = () => {
-    const { addBooking } = useBooking();
+    const { addBooking, destinations } = useBooking();
 
     const initialOrigin = '';
     const initialDestination = '';
@@ -22,23 +22,11 @@ const FormBooking = () => {
     const [date, setDate] = useState(initialDate);
     const [time, setTime] = useState(initialTime);
 
-    const toast = useRef(null);
-
-    const destinations = [
-        { label: 'Buenos Aires', value: 'Buenos Aires' },
-        { label: 'Cordoba', value: 'Cordoba' },
-        { label: 'Mendoza', value: 'Mendoza' }
-    ];
-
     const currentDate = new Date();
     currentDate.setDate(currentDate.getDate() + 1);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!origin || !destination || !passengers || !date || !time) {
-            toast.current.show({ severity: 'error', summary: 'Error', detail: 'Please fill all fields', life: 3000 });
-            return;
-        }
 
         const formatTime = (time) => {
             const hours = time.getHours().toString().padStart(2, '0');
@@ -57,7 +45,6 @@ const FormBooking = () => {
 
         addBooking(newBooking);
         handleReset();
-        toast.current.show({ severity: 'success', summary: 'Success', detail: 'Booking added successfully', life: 3000 });
     };
 
     const handleReset = () => {
@@ -156,7 +143,6 @@ const FormBooking = () => {
                     </form>
                 </div>
             </Card>
-            <Toast ref={toast} />
         </section>
     );
 }
