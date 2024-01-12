@@ -42,6 +42,17 @@ const FormBooking = () => {
             return;
         }
 
+        if (origin === destination) {
+            MySwal.fire({
+                title: 'Invalid Selection',
+                text: 'Origin and destination cannot be the same.',
+                icon: 'warning',
+                confirmButtonText: 'OK',
+                width: '30rem',
+                confirmButtonColor: '#dc2626',
+            });
+            return;
+        }
 
         const formatTime = (time) => {
             const hours = time.getHours().toString().padStart(2, '0');
