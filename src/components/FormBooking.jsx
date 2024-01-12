@@ -85,7 +85,7 @@ const FormBooking = () => {
                                 onChange={(e) => setOrigin(e.value)}
                                 options={destinations}
                                 placeholder="Select Origin"
-                                className="w-full"
+                                className="w-full border-b border-gray-300"
                                 filter
                             />
                         </div>
@@ -97,7 +97,7 @@ const FormBooking = () => {
                                 onChange={(e) => setDestination(e.value)}
                                 options={destinations}
                                 placeholder="Select Destination"
-                                className="w-full"
+                                className="w-full border-b border-gray-300"
                                 filter={true}
                             />
                         </div>
@@ -111,33 +111,36 @@ const FormBooking = () => {
                                 onChange={(e) => setPassengers(e.value)}
                                 options={Array.from({ length: 12 }, (_, index) => ({ label: `${index + 1}`, value: index + 1 }))}
                                 placeholder="Select Number of Passengers"
-                                className="w-full"
+                                className="w-full border-b border-gray-300"
                                 filter={true}
                             />
                         </div>
-                        <div className="space-y-2">
-                            <label htmlFor="date" className="block text-sm md:text-base text-gray-700">Date<span className='text-red-500'>*</span></label>
-                            <Calendar
-                                id="date"
-                                value={date}
-                                onChange={(e) => setDate(e.value)}
-                                dateFormat="dd/mm/yy"
-                                showIcon
-                                className="w-full border-b border-gray-300 custom-calendar"
-                                minDate={currentDate}
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <label htmlFor="time" className="block text-sm md:text-base text-gray-700">Time<span className='text-red-500'>*</span></label>
-                            <Calendar id="time"
-                                value={time}
-                                onChange={(e) => setTime(e.value)}
-                                showIcon
-                                showTime
-                                timeOnly
-                                hourFormat="24"
-                                className="w-full border-b border-gray-300 custom-calendar"
-                            />
+                        <div className="flex flex-col md:flex-row md:justify-between md:items-end">
+                            <div className="flex-1 mb-4 md:mb-0">
+                                <label htmlFor="date" className="block text-sm md:text-base text-gray-700">Date<span className='text-red-500'>*</span></label>
+                                <Calendar
+                                    id="date"
+                                    value={date}
+                                    onChange={(e) => setDate(e.value)}
+                                    dateFormat="dd/mm/yy"
+                                    showIcon
+                                    className="w-full border-b border-gray-300"
+                                    minDate={currentDate}
+                                />
+                            </div>
+                            <div className="flex-1">
+                                <label htmlFor="time" className="block text-sm md:text-base text-gray-700">Time<span className='text-red-500'>*</span></label>
+                                <Calendar
+                                    id="time"
+                                    value={time}
+                                    onChange={(e) => setTime(e.value)}
+                                    showIcon
+                                    showTime
+                                    timeOnly
+                                    hourFormat="24"
+                                    className="w-full border-b border-gray-300"
+                                />
+                            </div>
                         </div>
                         <div className="flex justify-around space-x-4 pt-4">
                             <Button
