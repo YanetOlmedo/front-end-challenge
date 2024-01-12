@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { useBooking } from "../context/BookingContext";
+import { Toast } from 'primereact/toast';
 
 const DetailsBook = ({ visible, onHide, booking }) => {
     const { deleteBookingById } = useBooking();
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+    const toast = useRef(null);
 
     if (!booking) return null;
 
@@ -21,6 +23,7 @@ const DetailsBook = ({ visible, onHide, booking }) => {
     const handleCancelBook = () => {
         deleteBookingById(booking.id);
         setShowConfirmDialog(false);
+        toast.current.show({ severity: 'success', summary: 'Success', detail: 'Booking cancelled successfully', life: 3000 });
         onHide();
     };
 
@@ -74,6 +77,7 @@ const DetailsBook = ({ visible, onHide, booking }) => {
                     />
                 </div>
             </Dialog>
+            <Toast ref={toast} />
         </div>
     );
 };
