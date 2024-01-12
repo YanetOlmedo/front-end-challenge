@@ -31,7 +31,8 @@ const ListBooking = () => {
                         <DataTable value={books}>
                             <Column field="destination" header="Destination" className='text-sm' />
                             <Column field="date" header="Date" className='text-sm' />
-                            <Column field="time" header="Time" className="text-sm hidden md:table-cell" />
+                            <Column field="time" header="Time" className="text-sm hidden md:table-cell" headerClassName="hidden md:table-cell" />
+
                             <Column
                                 body={(rowData) => (
                                     <button className="flex items-center text-sm" onClick={() => handleDetailsClick(rowData.id)}>
