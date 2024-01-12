@@ -10,7 +10,7 @@ import withReactContent from 'sweetalert2-react-content';
 
 
 const FormBooking = () => {
-    const { addBooking, destinations } = useBooking();
+    const { addBooking, destinations, travelTimes } = useBooking();
 
     const initialOrigin = '';
     const initialDestination = '';
@@ -54,19 +54,13 @@ const FormBooking = () => {
             return;
         }
 
-        const formatTime = (time) => {
-            const hours = time.getHours().toString().padStart(2, '0');
-            const minutes = time.getMinutes().toString().padStart(2, '0');
-            return `${hours}:${minutes}`;
-        };
-
         const newBooking = {
             id: Math.random(),
             origin,
             destination,
             passengers,
             date: date ? date.toISOString().split('T')[0] : '',
-            time: time ? formatTime(time) : '',
+            time
         };
 
         addBooking(newBooking);
@@ -141,14 +135,12 @@ const FormBooking = () => {
                             </div>
                             <div className="flex-1">
                                 <label htmlFor="time" className="block text-sm md:text-base text-gray-700">Time<span className='text-red-500'>*</span></label>
-                                <Calendar
+                                <Dropdown
                                     id="time"
                                     value={time}
+                                    options={travelTimes}
                                     onChange={(e) => setTime(e.value)}
                                     showIcon
-                                    showTime
-                                    timeOnly
-                                    hourFormat="24"
                                     className="w-full border-b border-gray-300"
                                 />
                             </div>

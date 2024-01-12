@@ -28,6 +28,15 @@ export const BookingProvider = ({ children }) => {
         { label: 'Entre Ríos', value: 'Entre Ríos' }
     ];
 
+    const travelTimes = [
+        { label: '08:00 AM', value: '08:00' },
+        { label: '10:00 AM', value: '10:00' },
+        { label: '01:00 PM', value: '13:00' },
+        { label: '03:00 PM', value: '15:00' },
+        { label: '06:00 PM', value: '18:00' },
+        { label: '09:00 PM', value: '21:00' },
+    ];
+
     useEffect(() => {
         const storedBooks = localStorage.getItem("books");
         if (storedBooks) {
@@ -75,7 +84,8 @@ export const BookingProvider = ({ children }) => {
             getBooks: () => books,
             addBooking,
             deleteBookingById,
-            destinations
+            destinations,
+            travelTimes
         }}>
             {children}
             <Toast ref={toast} />
